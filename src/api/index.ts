@@ -11,7 +11,7 @@ export interface PreviewCoursePayload {
 }
 
 export async function generatePreviewCourse(payload: PreviewCoursePayload) {
-    const response = await fetch("http://127.0.0.1:8000/api/preview-course", {
+    const response = await fetch("${API_BASE}/api/preview-course", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { API_BASE } from "@/cofig";
 
 interface Slide {
     filename: string;
@@ -27,7 +28,7 @@ export default function SlideViewer({
     useEffect(() => {
         if (!open || !lessonId) return;
         setLoading(true);
-        fetch(`${apiBase}/api/slides-signed-urls/${lessonId}`)
+        fetch(`${API_BASE}/api/slides-signed-urls/${lessonId}`)
             .then((r) => {
                 if (!r.ok) throw new Error("Slides not ready");
                 return r.json();

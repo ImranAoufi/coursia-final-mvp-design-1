@@ -16,6 +16,7 @@ import { generatePreviewCourse } from "@/api";
 import { sendOutcomeToBackend } from "@/api";
 import { sendAudienceToBackend } from "@/api";
 import { generateFullCourse } from "@/api";
+import { API_BASE } from "@/cofig";
 
 
 interface WizardData {
@@ -137,7 +138,7 @@ Generate a realistic, engaging, English-only JSON course structure with:
           },
         };
         console.log("📤 Sending full course generation request to backend...");
-        const response = await fetch("http://localhost:8080/api/generate-full-course", {
+        const response = await fetch("${API_BASE}/api/generate-full-course", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -149,14 +150,14 @@ Generate a realistic, engaging, English-only JSON course structure with:
 
         // Optional: du kannst hier warten, bis das ZIP fertig ist
         const interval = setInterval(async () => {
-          const statusRes = await fetch(`http://localhost:8080/api/job/${job.jobId}`);
+          const statusRes = await fetch(`${API_BASE}/api/job/${job.jobId}`);
           const statusData = await statusRes.json();
 
           if (statusData.status === "done") {
             clearInterval(interval);
             console.log("✅ Full course ready!", statusData);
             alert("Your full course package is ready for download!");
-            window.open(`http://localhost:8080/generated/${job.jobId}.zip`, "_blank");
+            window.open(`${API_BASE}/generated/${job.jobId}.zip`, "_blank");
           }
         }, 2000);
       } catch (err) {

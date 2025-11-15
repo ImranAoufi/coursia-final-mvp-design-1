@@ -295,7 +295,7 @@ const Pricing = () => {
 
                     const previewData = JSON.parse(sessionStorage.getItem("coursia_preview") || "{}");
 
-                    const res = await fetch("http://127.0.0.1:8000/api/generate-full-course", {
+                    const res = await fetch("${API_BASE}/api/generate-full-course", {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ course: previewData }),

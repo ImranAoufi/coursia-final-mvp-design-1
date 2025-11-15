@@ -60,7 +60,7 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
       formData.append("files", file);
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/upload", {
+        const res = await fetch("${API_BASE}/api/upload", {
           method: "POST",
           body: formData,
         });
@@ -184,7 +184,7 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
                   uploadData.append("file", file);
 
                   // Schicke jede Datei an deinen neuen Endpoint
-                  const uploadRes = await fetch("http://127.0.0.1:8000/api/read-file", {
+                  const uploadRes = await fetch("${API_BASE}/api/read-file", {
                     method: "POST",
                     body: uploadData,
                   });
@@ -201,7 +201,7 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
               }
 
               console.log("🚀 Sending POST to /api/generate-course ...");
-              const res = await fetch("http://127.0.0.1:8000/api/generate-course", {
+              const res = await fetch("${API_BASE}/api/generate-course", {
                 method: "POST",
                 body: formData,
               });

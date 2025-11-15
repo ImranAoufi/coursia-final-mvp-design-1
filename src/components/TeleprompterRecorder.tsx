@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle, Video } from "lucide-react";
+import { API_BASE } from "@/cofig";
 
 interface TeleprompterRecorderProps {
     courseId: string;
@@ -62,7 +63,7 @@ export default function TeleprompterRecorder({
         formData.append("course_id", courseId);
         formData.append("lesson_id", lessonId);
 
-        const response = await fetch("http://127.0.0.1:8000/api/upload-video", {
+        const response = await fetch("${API_BASE}/api/upload-video", {
             method: "POST",
             body: formData,
         });

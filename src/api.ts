@@ -1,25 +1,31 @@
-// 🔧 Basis-URL für dein Backend
-const API_URL = "http://127.0.0.1:8000";
-const base = import.meta.env.VITE_API_BASE || API_URL;
+// 🌍 BASE URL – automatisch Render oder lokal
+const DEFAULT_LOCAL = "http://127.0.0.1:8000";
+const base = import.meta.env.VITE_API_BASE || DEFAULT_LOCAL;
 
-// ✅ Testverbindung zum Backend
+// ---------------------------------------------------------
+// TEST
+// ---------------------------------------------------------
 export async function testBackend() {
     const response = await fetch(`${base}/`);
-    const data = await response.json();
-    return data;
+    return response.json();
 }
 
-// ✅ Beispielroute (optional)
+// ---------------------------------------------------------
+// Beispiel
+// ---------------------------------------------------------
 export async function generateFromBackend(topic: string) {
     const response = await fetch(`${base}/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic }),
     });
-    const data = await response.json();
-    return data;
+
+    return response.json();
 }
 
+// ---------------------------------------------------------
+// PREVIEW COURSE
+// ---------------------------------------------------------
 export interface PreviewRequest {
     prompt: string;
     num_lessons?: number;
@@ -29,18 +35,15 @@ export interface PreviewRequest {
     transformation?: string;
     audience?: string;
     level?: string;
-    format?: "Micro" | "Standard" | "Masterclass"; // ← neu hinzugefügt, sonst alles gleich
+    format?: "Micro" | "Standard" | "Masterclass";
 }
 
-// ⛔ Keine Änderung an der Funktion selbst - exakt wie vorher
 export async function generatePreviewCourse(payload: PreviewRequest) {
     try {
         const url = `${base}/api/preview-course`;
         const res = await fetch(url, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
         });
 
@@ -49,18 +52,19 @@ export async function generatePreviewCourse(payload: PreviewRequest) {
             throw new Error(`API error ${res.status}: ${text}`);
         }
 
-        const data = await res.json();
-        return data;
+        return await res.json();
     } catch (err) {
         console.error("generatePreviewCourse error:", err);
         throw err;
     }
 }
 
-
+// ---------------------------------------------------------
+// OUTCOME SEND
+// ---------------------------------------------------------
 export async function sendOutcomeToBackend(outcome: string) {
     try {
-        const res = await fetch("http://localhost:8080/api/preview-course", {
+        const res = await fetch(`${base}/api/preview-course`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -71,39 +75,41 @@ export async function sendOutcomeToBackend(outcome: string) {
                 include_workbook: true,
             }),
         });
-        const data = await res.json();
-        console.log("📤 Outcome successfully sent:", data);
-        return data;
+
+        return await res.json();
     } catch (err) {
-        console.error("❌ Error sending outcome to backend:", err);
+        console.error("❌ Error sending outcome:", err);
     }
 }
 
+// ---------------------------------------------------------
+// AUDIENCE SEND
+// ---------------------------------------------------------
 export async function sendAudienceToBackend(audience: string, audienceLevel: string) {
     try {
-        const res = await fetch("http://127.0.0.1:8000/api/audience", {
+        const res = await fetch(`${base}/api/audience`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ audience, audienceLevel }),
         });
-        if (!res.ok) {
-            const text = await res.text().catch(() => "");
-            throw new Error(`API error ${res.status}: ${text}`);
-        }
-        const data = await res.json();
-        console.log("✅ sendAudienceToBackend response:", data);
-        return data;
+
+        if (!res.ok) throw new Error(`API error ${res.status}`);
+
+        return await res.json();
     } catch (err) {
         console.error("❌ sendAudienceToBackend failed:", err);
         throw err;
     }
 }
 
+// ---------------------------------------------------------
+// MATERIAL UPLOAD
+// ---------------------------------------------------------
 export async function uploadMaterialsToBackend(files: File[]) {
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));
 
-    const res = await fetch("http://127.0.0.1:8000/api/materials", {
+    const res = await fetch(`${base}/api/materials`, {
         method: "POST",
         body: formData,
     });
@@ -112,52 +118,45 @@ export async function uploadMaterialsToBackend(files: File[]) {
     return res.json();
 }
 
+// ---------------------------------------------------------
+// FULL COURSE GENERATION
+// ---------------------------------------------------------
 export async function generateFullCourse(courseData?: any) {
     try {
-        console.log("📤 Sending full course generation request to backend...");
-        const response = await fetch("http://127.0.0.1:8000/api/generate-full-course", {
+        const response = await fetch(`${base}/api/generate-full-course`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(courseData || {}),
         });
 
-        console.log("📥 Full course response status:", response.status);
         if (!response.ok) {
             const text = await response.text();
-            console.error("❌ Error from backend:", text);
             throw new Error(text);
         }
 
-        const data = await response.json();
-        console.log("✅ Full course generation response:", data);
-        return data;
+        return await response.json();
     } catch (err) {
         console.error("💥 Full course generation failed:", err);
         throw err;
     }
 }
 
+// ---------------------------------------------------------
+// JOB POLLING
+// ---------------------------------------------------------
 export async function pollJobStatus(jobId: string, onProgress?: (status: string) => void) {
-    console.log(`⏳ Polling job status for ${jobId}...`);
-
     while (true) {
-        const res = await fetch(`http://127.0.0.1:8000/api/job-status/${jobId}`);
+        const res = await fetch(`${base}/api/job-status/${jobId}`);
         const data = await res.json();
 
         if (onProgress) onProgress(data.status);
 
-        // Wenn fertig
         if (data.status === "done" && data.result) {
-            console.log("✅ Course generation completed:", data.result);
-
-            // 🔥 Wichtig: Kurs-Daten speichern
             sessionStorage.setItem("coursia_full_course", JSON.stringify(data.result));
-
-            return data.result; // nicht data.result.course
+            return data.result;
         }
 
         if (data.status === "failed") {
-            console.error("❌ Job failed:", data);
             throw new Error("Course generation failed");
         }
 
