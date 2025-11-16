@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle2 } from "lucide-react";
+import { API_BASE } from "@/cofig";
 
 export default function CourseView() {
     const [course, setCourse] = useState<any>(null);
@@ -42,7 +43,7 @@ export default function CourseView() {
                 <div className="relative w-full h-64 bg-gradient-to-r from-primary/70 to-accent/70">
                     {courseData.banner_path && (
                         <img
-                            src={`http://127.0.0.1:8000/${courseData.banner_path}`}
+                            src={`${API_BASE}/${courseData.banner_path}`}
                             alt="Course banner"
                             className="w-full h-64 object-cover"
                         />
@@ -58,7 +59,7 @@ export default function CourseView() {
                 {courseData.logo_path && (
                     <div className="flex justify-center -mt-12">
                         <img
-                            src={`http://127.0.0.1:8000/${courseData.logo_path}`}
+                            src={`${API_BASE}/${courseData.logo_path}`}
                             alt="Course logo"
                             className="w-24 h-24 rounded-xl border-4 border-background shadow-lg bg-white"
                         />

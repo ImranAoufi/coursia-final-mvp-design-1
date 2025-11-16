@@ -177,7 +177,7 @@ const MyCourse = () => {
     const toURL = (path?: string) => {
         if (!path) return "";
         return path
-            .replace(/^.*generated[\\/]/, "http://127.0.0.1:8000/generated/")
+            .replace(/^.*generated[\\/]/, "${API_BASE}/generated/")
             .replace(/\\/g, "/");
     };
 

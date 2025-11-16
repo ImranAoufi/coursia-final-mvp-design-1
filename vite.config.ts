@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
     // 🧩 Proxy ergänzt — wichtig für Verbindung zu FastAPI
     proxy: {
       "/api": {
-        target: "http://127.0.0.1:8000", // dein FastAPI Backend
+        target: "${API_BASE}", // dein FastAPI Backend
         changeOrigin: true,
         secure: false,
       },

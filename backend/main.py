@@ -20,6 +20,7 @@ import tempfile
 from PyPDF2 import PdfReader
 from docx import Document
 from fastapi import UploadFile, File, Form
+from fastapi import Request
 from typing import List
 from typing import List, Optional
 import asyncio
@@ -688,12 +689,14 @@ Keep scripts actionable and specific to the lesson title. Keep quiz questions sh
             "lessons": course_out.get("lessons"),
             "zip": str(zip_path.resolve()),
         }
+        request: Request
+        base_url = str(request.base_url).rstrip("/")
         if logo_abs_path:
             final_result["logo_path"] = logo_abs_path
-            final_result["logo_url"] = f"http://127.0.0.1:8000/generated/{job_id}/logo.png"
+            final_result["logo_url"] = f"{base_url}/generated/{job_id}/logo.png"
         if banner_abs_path:
             final_result["banner_path"] = banner_abs_path
-            final_result["banner_url"] = f"http://127.0.0.1:8000/generated/{job_id}/banner.png"
+            final_result["banner_url"] = f"{base_url}/generated/{job_id}/banner.png"
 
         JOBS[job_id]["status"] = "done"
         JOBS[job_id]["result"] = final_result
@@ -702,8 +705,8 @@ Keep scripts actionable and specific to the lesson title. Keep quiz questions sh
 
     except Exception as e:
         JOBS[job_id]["status"] = "error"
-        JOBS[job_id]["error"] = str(e)
-        print(f"💥 Job {job_id} failed with exception: {e}")
+    JOBS[job_id]["error"] = str(e)
+    print(f"💥 Job {job_id} failed with exception: {e}")
 
 
 # ============================================================
@@ -951,6 +954,7 @@ async def read_file(file: UploadFile = File(...)):
 
 @app.post("/api/upload-video")
 async def upload_video(
+    request: Request,
     video: UploadFile = File(...),
     course_id: str = Form(...),
     lesson_id: str = Form(...)
@@ -962,7 +966,9 @@ async def upload_video(
     with open(video_path, "wb") as f:
         f.write(await video.read())
 
-    return {"video_url": f"http://127.0.0.1:8000/{video_path}"}
+        base_url = str(request.base_url).rstrip("/")
+
+        return {"video_url": f"{base_url}/generated/{course_id}/{lesson_id}/{video.filename}"}
 
 
 class CoachImproveScriptRequest(BaseModel):
