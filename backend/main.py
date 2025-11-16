@@ -375,29 +375,17 @@ Output rules:
         import json
         parsed = json.loads(raw_output)
         print(f"✅ Parsed JSON with {len(parsed.get('lessons', []))} lessons.")
-        return {"course": parsed}
+        return JSONResponse(
+            status_code=200,
+            content={"success": True, "course": parsed},
+        )
 
     except Exception as e:
         print("❌ Error in generate_course:", e)
-        return {"error": str(e)}
-
-    # Extract text and ensure it’s valid JSON
-    raw_output = completion.choices[0].message.content.strip()
-
-    # Remove ```json or ``` if present
-    if raw_output.startswith("```"):
-        raw_output = raw_output.split("```")[1]
-        if raw_output.strip().startswith("json"):
-            raw_output = raw_output.split("\n", 1)[1]
-        raw_output = raw_output.strip()
-
-    # Try to parse to JSON
-    import json
-    try:
-        parsed = json.loads(raw_output)
-        return {"course": parsed}
-    except json.JSONDecodeError:
-        return {"course": {"raw_text": raw_output, "error": "Invalid JSON format from OpenAI"}}
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "error": str(e)},
+        )
 
 # --- FULL GENERATION BACKGROUND JOBS ---
 
