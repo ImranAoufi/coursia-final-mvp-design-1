@@ -208,7 +208,7 @@ const MyCourse = () => {
                             setCourse(full);
                             setStatus("done");
                             toast.success("✅ Your full course is ready!");
-                            navigate("/mycourse", { state: { jobId } });
+                            navigate("/my-course", { state: { jobId } });
                         }
                     }
                 } catch (err) {
