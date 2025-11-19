@@ -6,6 +6,7 @@ import { Upload, Link2, FileText, CheckCircle2, ChevronRight } from "lucide-reac
 import { motion } from "framer-motion";
 import { uploadMaterialsToBackend } from "@/api";
 import { API_BASE } from "@/cofig";
+import { useNavigate } from "react-router-dom";
 
 interface MaterialsStepProps {
   onNext: (data: { materials: string; links: string; files?: string[] }) => void;
@@ -17,6 +18,8 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
   const [links, setLinks] = useState("");
   const [files, setFiles] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
+
+  const navigate = useNavigate();
 
   const canProceed = materials.trim().length >= 50;
   const handleContinue = async () => {
@@ -226,7 +229,7 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
 
               setTimeout(() => {
                 console.log("➡️ Navigating to /preview");
-                window.location.href = "/preview";
+                navigate("/preview");
               }, 2500);
             } catch (err) {
               console.error("💥 Error during course generation:", err);
