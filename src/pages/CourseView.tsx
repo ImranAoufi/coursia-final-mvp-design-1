@@ -112,7 +112,7 @@ export default function CourseView() {
                         onClick={async () => {
                             setLoading(true);
                             try {
-                                const res = await fetch("${API_BASE}/api/generate-full-course", {
+                                const res = await fetch(`${API_BASE}/api/generate-full-course`, {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },
                                     body: JSON.stringify({ course: courseData }),

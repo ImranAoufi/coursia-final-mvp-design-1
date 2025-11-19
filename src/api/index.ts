@@ -1,3 +1,6 @@
+import { API_BASE } from "@/cofig";
+
+
 export interface PreviewCoursePayload {
     prompt: string;
     num_lessons?: number;
@@ -11,7 +14,7 @@ export interface PreviewCoursePayload {
 }
 
 export async function generatePreviewCourse(payload: PreviewCoursePayload) {
-    const response = await fetch("${API_BASE}/api/preview-course", {
+    const response = await fetch(`${API_BASE}/api/preview-course`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

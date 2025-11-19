@@ -63,7 +63,7 @@ export default function TeleprompterRecorder({
         formData.append("course_id", courseId);
         formData.append("lesson_id", lessonId);
 
-        const response = await fetch("${API_BASE}/api/upload-video", {
+        const response = await fetch(`${API_BASE}/api/upload-video`, {
             method: "POST",
             body: formData,
         });

@@ -6,6 +6,7 @@ import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BackgroundOrbs } from "@/components/BackgroundOrbs";
 import { pollJobStatus } from "@/api";
+import { API_BASE } from "@/cofig";
 
 interface PricingTier {
   name: string;
@@ -295,7 +296,7 @@ const Pricing = () => {
 
                     const previewData = JSON.parse(sessionStorage.getItem("coursia_preview") || "{}");
 
-                    const res = await fetch("${API_BASE}/api/generate-full-course", {
+                    const res = await fetch(`${API_BASE}/api/generate-full-course`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ course: previewData }),

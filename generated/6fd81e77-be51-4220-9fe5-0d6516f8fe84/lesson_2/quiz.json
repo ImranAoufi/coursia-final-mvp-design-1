@@ -1,0 +1,44 @@
+{
+  "questions": [
+    {
+      "question": "What does an open posture typically signal?",
+      "options": [
+        "Confidence",
+        "Defensiveness",
+        "Disinterest",
+        "Anxiety"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What can excessive hand movements during a conversation indicate?",
+      "options": [
+        "Engagement",
+        "Distraction",
+        "Confidence",
+        "Openness"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which facial expression is often associated with warmth?",
+      "options": [
+        "Frown",
+        "Scowl",
+        "Smile",
+        "Raised eyebrows"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does maintaining eye contact usually signify?",
+      "options": [
+        "Disinterest",
+        "Engagement",
+        "Anxiety",
+        "Defensiveness"
+      ],
+      "answer": "B"
+    }
+  ]
+}

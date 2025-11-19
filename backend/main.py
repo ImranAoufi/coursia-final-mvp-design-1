@@ -319,7 +319,7 @@ Never use "Lesson 1" or generic numbering as the title.
 
 Each lesson should include:
 - "lesson_title": creative and relevant (not generic)
-- "video_titles": a list of short, engaging video titles (about 2–3 videos per lesson)
+- "video_titles": a list of short, engaging video titles (about 2-3 videos per lesson)
 - "quiz": true
 - "workbook": true
 
@@ -677,14 +677,13 @@ Keep scripts actionable and specific to the lesson title. Keep quiz questions sh
             "lessons": course_out.get("lessons"),
             "zip": str(zip_path.resolve()),
         }
-        request: Request
-        base_url = str(request.base_url).rstrip("/")
+        base_url = "/generated"
         if logo_abs_path:
             final_result["logo_path"] = logo_abs_path
-            final_result["logo_url"] = f"{base_url}/generated/{job_id}/logo.png"
+            final_result["logo_url"] = f"{base_url}/{job_id}/logo.png"
         if banner_abs_path:
             final_result["banner_path"] = banner_abs_path
-            final_result["banner_url"] = f"{base_url}/generated/{job_id}/banner.png"
+            final_result["banner_url"] = f"{base_url}/{job_id}/banner.png"
 
         JOBS[job_id]["status"] = "done"
         JOBS[job_id]["result"] = final_result
@@ -693,8 +692,8 @@ Keep scripts actionable and specific to the lesson title. Keep quiz questions sh
 
     except Exception as e:
         JOBS[job_id]["status"] = "error"
-    JOBS[job_id]["error"] = str(e)
-    print(f"💥 Job {job_id} failed with exception: {e}")
+        JOBS[job_id]["error"] = str(e)
+        print(f"💥 Job {job_id} failed with exception: {e}")
 
 
 # ============================================================

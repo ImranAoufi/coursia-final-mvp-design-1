@@ -20,6 +20,7 @@ import { ChevronDown } from "lucide-react";
 import { QuizDisplay } from "@/components/QuizDisplay";
 import WorkbookDisplay from "@/components/WorkbookDisplay";
 import SlideViewer from "@/components/SlideViewer";
+import { API_BASE } from "@/cofig";
 
 
 
@@ -177,7 +178,7 @@ const MyCourse = () => {
     const toURL = (path?: string) => {
         if (!path) return "";
         return path
-            .replace(/^.*generated[\\/]/, "${API_BASE}/generated/")
+            .replace(/^.*generated[\\/]/, `${API_BASE}/generated/`)
             .replace(/\\/g, "/");
     };
 

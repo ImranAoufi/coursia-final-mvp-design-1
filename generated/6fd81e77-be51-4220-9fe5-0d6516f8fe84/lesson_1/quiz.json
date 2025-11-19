@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "question": "What is the primary focus of clarity in communication?",
+      "options": [
+        "Being understood",
+        "Using complex vocabulary",
+        "Speaking quickly",
+        "Avoiding interaction"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which technique helps improve conciseness?",
+      "options": [
+        "Using passive voice",
+        "Eliminating unnecessary words",
+        "Adding filler phrases",
+        "Using jargon"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What should you identify to maintain focus in your message?",
+      "options": [
+        "Core message",
+        "Audience's preferences",
+        "Length of message",
+        "Number of words used"
+      ],
+      "answer": "A"
+    }
+  ]
+}

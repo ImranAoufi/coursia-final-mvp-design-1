@@ -138,7 +138,7 @@ Generate a realistic, engaging, English-only JSON course structure with:
           },
         };
         console.log("📤 Sending full course generation request to backend...");
-        const response = await fetch("${API_BASE}/api/generate-full-course", {
+        const response = await fetch(`${API_BASE}/api/generate-full-course`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),

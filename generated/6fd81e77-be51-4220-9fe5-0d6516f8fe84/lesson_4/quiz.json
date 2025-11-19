@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "question": "What is the primary goal of active listening?",
+      "options": [
+        "To respond quickly",
+        "To understand the speaker",
+        "To give advice",
+        "To interrupt"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is an active listening technique?",
+      "options": [
+        "Interrupting",
+        "Summarizing",
+        "Changing the subject",
+        "Focusing on your response"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What should you do before responding in a conversation?",
+      "options": [
+        "Pause",
+        "Speak immediately",
+        "Change the topic",
+        "Ask for clarification"
+      ],
+      "answer": "A"
+    }
+  ]
+}

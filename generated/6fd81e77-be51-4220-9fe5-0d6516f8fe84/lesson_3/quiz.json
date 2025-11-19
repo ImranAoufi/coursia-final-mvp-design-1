@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "question": "What is a key technique for expressing feelings in a conversation?",
+      "options": [
+        "Using 'You' statements",
+        "Using 'I' statements",
+        "Ignoring feelings",
+        "Yelling"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What should you do before responding in a heated conversation?",
+      "options": [
+        "Interrupt",
+        "Pause",
+        "Leave the room",
+        "Agree immediately"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Why is empathy important in conflict resolution?",
+      "options": [
+        "It helps you win",
+        "It builds rapport",
+        "It avoids conflict",
+        "It takes too much time"
+      ],
+      "answer": "B"
+    }
+  ]
+}

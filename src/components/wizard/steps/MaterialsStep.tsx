@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Upload, Link2, FileText, CheckCircle2, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { uploadMaterialsToBackend } from "@/api";
+import { API_BASE } from "@/cofig";
 
 interface MaterialsStepProps {
   onNext: (data: { materials: string; links: string; files?: string[] }) => void;
@@ -60,7 +61,7 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
       formData.append("files", file);
 
       try {
-        const res = await fetch("${API_BASE}/api/upload", {
+        const res = await fetch(`${API_BASE}/api/upload`, {
           method: "POST",
           body: formData,
         });
@@ -184,7 +185,7 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
                   uploadData.append("file", file);
 
                   // Schicke jede Datei an deinen neuen Endpoint
-                  const uploadRes = await fetch("${API_BASE}/api/read-file", {
+                  const uploadRes = await fetch(`${API_BASE}/api/read-file`, {
                     method: "POST",
                     body: uploadData,
                   });
@@ -201,7 +202,7 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
               }
 
               console.log("🚀 Sending POST to /api/generate-course ...");
-              const res = await fetch("${API_BASE}/api/generate-course", {
+              const res = await fetch(`${API_BASE}/api/generate-course`, {
                 method: "POST",
                 body: formData,
               });
@@ -246,3 +247,4 @@ const MaterialsStep = ({ onNext, onBack }: MaterialsStepProps) => {
 };
 
 export default MaterialsStep;
+
