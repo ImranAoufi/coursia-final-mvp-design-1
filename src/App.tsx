@@ -15,6 +15,7 @@ import MyCourse from "@/pages/MyCourse";
 
 // ✅ Hier kommt dein Wizard aus src/components/
 import IntakeWizard from "./components/IntakeWizard";
+import Marketplace from "@/pages/MarketPlace";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,9 @@ const App = () => (
             {/* ✅ Vorschau-Seite */}
             <Route path="/preview" element={<Preview />} />
 
-            <Route path="/my-course" element={<MyCourse />} />
+            <Route path="/mycourse" element={<MyCourse />} />
+
+            <Route path="/marketplace" element={<Marketplace />} />
 
             {/* ✅ Normale Seiten */}
             <Route path="/" element={<Landing />} />
